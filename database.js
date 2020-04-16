@@ -1,11 +1,13 @@
-const sequelize = require('sequelize')
+const sequelize = require('sequelize');
 
 const db = new sequelize({
     dialect : 'sqlite',
-    storage : __dirname + '/taskTodo.db'
-})
+    storage : __dirname + '/todos.db'
+});
 
-const taskNotes = db.define('taskNotes', {
+console.log(__dirname);
+
+const notes = db.define('notes', {
     id : {
         type : sequelize.INTEGER,
         autoIncrement : true,
@@ -17,7 +19,7 @@ const taskNotes = db.define('taskNotes', {
     }
 })
 
-const taskTodo = db.define('taskTodo', {
+const Todos = db.define('Todos', {
     id : {
         type : sequelize.INTEGER,
         autoIncrement: true,
@@ -50,11 +52,11 @@ const taskTodo = db.define('taskTodo', {
         allowNull: false
     }
 
-})
+});
 
-taskTodo.hasMany(taskNotes);
-taskNotes.belongsTo(taskTodo);
+Todos.hasMany(notes);
+notes.belongsTo(Todos);
 
 module.exports = {
-    db, taskTodo, taskNotes
+    db, Todos, notes
 };
